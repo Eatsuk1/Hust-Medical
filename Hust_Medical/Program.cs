@@ -6,10 +6,10 @@ var configuration = builder.Configuration.AddJsonFile("appsettings.json").Build(
 
 //var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
 //builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
-builder.Services.AddSignalR().AddAzureSignalR(options =>
-{
-    options.ConnectionString = configuration["AzureSignalRConnectionString"];
-});
+//builder.Services.AddSignalR().AddAzureSignalR(options =>
+//{
+//    options.ConnectionString = configuration["AzureSignalRConnectionString"];
+//});
 
 // Add services to the container.
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
