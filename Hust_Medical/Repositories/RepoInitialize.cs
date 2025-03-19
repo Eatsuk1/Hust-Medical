@@ -2,13 +2,14 @@
 {
     public class RepoInitialize
     {
-        private readonly IKeyVaultService _keyVaultService;
+        //private readonly IKeyVaultService _keyVaultService;
         private readonly IMongoClient _client;
 
-        public RepoInitialize(IKeyVaultService keyVaultService)
+        public RepoInitialize(IConfiguration configuration)
         {
-            _keyVaultService = keyVaultService;
-            _client = new MongoClient(_keyVaultService.GetConnectingString());
+            //_keyVaultService = keyVaultService;
+            var connectionString = configuration["MongoDbConnectionString"];
+            _client = new MongoClient(connectionString);
         }
 
         public IMongoDatabase GetDatabase()

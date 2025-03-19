@@ -14,20 +14,19 @@ namespace Hust_Medical.Services
         private readonly string _client_id;
         private readonly string _client_secret;
 
-        private readonly IKeyVaultService _keyVaultService;
+        //private readonly IKeyVaultService _keyVaultService;
         private IJsonSerializer _serializer;
         private IDateTimeProvider _provider;
         private IBase64UrlEncoder _urlEncoder;
 
         private readonly string _signingCert;
 
-        public AccountService(IKeyVaultService keyVaultService)
+        public AccountService(IConfiguration configuration)
         {
-            _keyVaultService = keyVaultService;
-            _domain = _keyVaultService.GetAuth0KeyVault().Domain;
-            _client_id = _keyVaultService.GetAuth0KeyVault().ClientId;
-            _client_secret = _keyVaultService.GetAuth0KeyVault().ClientSecret;
-            _signingCert = _keyVaultService.GetAuth0KeyVault().SigningCert;
+            _domain = configuration["Auth0:auth0Domain"];
+            _client_id = configuration["Auth0:auth0ClientId"];
+            _client_secret = configuration["Auth0:auth0ClientSecret"];
+            _signingCert = configuration["Auth0:auth0SigningCert"];
             _serializer = new JsonNetSerializer();
             _provider = new UtcDateTimeProvider();
             _urlEncoder = new JwtBase64UrlEncoder();

@@ -2,12 +2,13 @@
 using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration.AddJsonFile("appsettings.json").Build();
 
-var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
-builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
+//var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
+//builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
 builder.Services.AddSignalR().AddAzureSignalR(options =>
 {
-    options.ConnectionString = builder.Configuration["azure-signalr-connectionstring-f154a"];
+    options.ConnectionString = configuration["AzureSignalRConnectionString"];
 });
 
 // Add services to the container.
@@ -27,7 +28,7 @@ builder.AddRepositories();
 // Add Services
 builder.AddServices();
 // Add Authentication
-builder.AddAuthentication();
+builder.AddAuthentication(configuration);
 
 var app = builder.Build();
 

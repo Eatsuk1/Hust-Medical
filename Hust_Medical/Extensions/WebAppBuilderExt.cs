@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using MudBlazor;
 using MudBlazor.Services;
+using System.Configuration;
 
 namespace Hust_Medical.Extensions
 {
@@ -34,13 +35,13 @@ namespace Hust_Medical.Extensions
             builder.Services.AddScoped<IBillingService, BillingService>();
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddSingleton<IKeyVaultService, KeyVaultService>();
+            //builder.Services.AddSingleton<IKeyVaultService, KeyVaultService>();
             builder.Services.AddScoped<IPrintingService, PrintingService>();
             builder.Services.AddScoped<IStatisticService, StatisticService>();
             //builder.Services.AddSingleton(typeof(ILogger), builder.Services.BuildServiceProvider().GetService<ILogger<Medicine>>());
         }
 
-        public static void AddAuthentication(this WebApplicationBuilder builder)
+        public static void AddAuthentication(this WebApplicationBuilder builder, IConfiguration configuration)
         {
             builder.Services.AddAuthentication(options =>
 {
@@ -54,10 +55,10 @@ namespace Hust_Medical.Extensions
 })
  .AddOpenIdConnect("Auth0", options =>
  {
-     options.Authority = $"https://{builder.Configuration["auth0Domain"]}";
+     options.Authority = $"https://{configuration["Auth0:auth0Domain"]}";
 
-     options.ClientId = builder.Configuration["auth0ClientId"];
-     options.ClientSecret = builder.Configuration["auth0ClientSecret"];
+     options.ClientId = configuration["Auth0:auth0ClientId"];
+     options.ClientSecret = configuration["Auth0:auth0ClientSecret"];
 
      options.ResponseType = OpenIdConnectResponseType.Code;
 
@@ -79,7 +80,7 @@ namespace Hust_Medical.Extensions
      {
          OnRedirectToIdentityProviderForSignOut = (context) =>
          {
-             var logoutUri = $"https://{builder.Configuration["auth0Domain"]}/v2/logout?client_id={builder.Configuration["auth0ClientId"]}";
+             var logoutUri = $"https://{configuration["Auth0:auth0Domain"]}/v2/logout?client_id={configuration["Auth0:auth0ClientId"]}";
 
              var postLogoutUri = context.Properties.RedirectUri;
              if (!string.IsNullOrEmpty(postLogoutUri))
