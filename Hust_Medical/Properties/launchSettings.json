@@ -5,9 +5,7 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.Azure.SignalR",
-        "VaultUri": "https://hustmeckeyvault.vault.azure.net/",
-        "AZURE_USERNAME": "ANH.LQ192684@sis.hust.edu.vn"
+        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.Azure.SignalR"
       },
       "applicationUrl": "https://localhost:44987",
       "dotnetRunMessages": true,
@@ -18,9 +16,7 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.Azure.SignalR",
-        "VaultUri": "https://hustmeckeyvault.vault.azure.net/",
-        "AZURE_USERNAME": "ANH.LQ192684@sis.hust.edu.vn"
+        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.Azure.SignalR"
       }
     }
   },
