@@ -1,24 +1,16 @@
 ﻿using MudBlazor.Services;
-using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
-var configuration = builder.Configuration.AddJsonFile("appsettings.json").Build();
 
-//var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
-//builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
 builder.Services.AddSignalR().AddAzureSignalR(options =>
 {
-    options.ConnectionString = configuration["AzureSignalRConnectionString"];
+    options.ConnectionString = builder.Configuration["AzureSignalRConnectionString"];
 });
 
 // Add services to the container.
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddRazorPages();
-//builder.Services.AddSwaggerGen(c =>
-//{
-//    c.SwaggerDoc("v1", new() { Title = "Patient_Health_Management_System", Version = "v1" });
-//});
 builder.Services.AddMudServices();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddMvcCore().AddApiExplorer();
@@ -28,7 +20,7 @@ builder.AddRepositories();
 // Add Services
 builder.AddServices();
 // Add Authentication
-builder.AddAuthentication(configuration);
+builder.AddAuthentication(builder.Configuration);
 
 var app = builder.Build();
 
@@ -36,8 +28,6 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
-    //app.UseSwagger();
-    //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Patient_Health_Management_System v1"));
 }
 else
 {

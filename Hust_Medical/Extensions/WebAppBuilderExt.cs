@@ -35,10 +35,8 @@ namespace Hust_Medical.Extensions
             builder.Services.AddScoped<IBillingService, BillingService>();
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IUserService, UserService>();
-            //builder.Services.AddSingleton<IKeyVaultService, KeyVaultService>();
             builder.Services.AddScoped<IPrintingService, PrintingService>();
             builder.Services.AddScoped<IStatisticService, StatisticService>();
-            //builder.Services.AddSingleton(typeof(ILogger), builder.Services.BuildServiceProvider().GetService<ILogger<Medicine>>());
         }
 
         public static void AddAuthentication(this WebApplicationBuilder builder, IConfiguration configuration)
