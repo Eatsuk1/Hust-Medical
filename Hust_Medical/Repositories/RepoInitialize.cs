@@ -8,7 +8,7 @@
         public RepoInitialize(IConfiguration configuration)
         {
             _configuration = configuration;
-            var connectionString = _configuration["CUSTOMCONNSTR_MongoDbConnectionString"];
+            var connectionString = _configuration["CUSTOMCONNSTR:MongoDbConnectionString"];
             _client = new MongoClient(connectionString);
         }
 
